@@ -5,7 +5,7 @@ end
 init
 
 sum = 0
-0.upto($n) do |i|
+1.upto($n) do |i|
   work_sum = 0
   i.to_s.size.times do |j|
     work_sum += i.to_s[j].to_i
