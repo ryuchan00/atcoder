@@ -1,4 +1,5 @@
 # 探した中だとこれがもっとも速いのだった。
+# https://atcoder.jp/contests/abs/submissions/6855359
 a = gets.to_i
 b = gets.to_i
 c = gets.to_i
