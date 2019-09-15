@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+file_name = ARGV[0]
+File.write("#{file_name}.rb", '')
+puts "create #{file_name}.rb"
+(1..3).each do |i|
+  File.write("test/#{file_name}_#{i}.txt", '')
+  puts "create #{file_name}_#{i}.txt"
+end
