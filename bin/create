@@ -6,5 +6,7 @@ File.write("#{file_name}.rb", '')
 puts "create #{file_name}.rb"
 1.upto(file_num) do |i|
   File.write("test/#{file_name}_#{i}.txt", '')
-  puts "create #{file_name}_#{i}.txt"
+  puts "create test/#{file_name}_#{i}.txt"
 end
+puts 'execute below command'
+puts "ruby #{file_name}.rb < test/#{file_name}_1.txt"
