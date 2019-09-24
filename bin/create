@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
+abort 'shuld be given arguments' if ARGV[0].nil? || ARGV[1].nil?
 file_name = ARGV[0]
+file_num = ARGV[1].to_i
 File.write("#{file_name}.rb", '')
 puts "create #{file_name}.rb"
-(1..3).each do |i|
+1.upto(file_num) do |i|
   File.write("test/#{file_name}_#{i}.txt", '')
   puts "create #{file_name}_#{i}.txt"
 end
