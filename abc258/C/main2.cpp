@@ -40,8 +40,12 @@ int main() {
       // cdab 2,6,10のとき pointer=2
       // bcda 3,7,11のとき pointer=1
       // abcd 0,4,8,12のとき pointer=0
-      pointer = (n - (sum % n)) % n;
-      cout << s.at((pointer + q2 - 1) % n) << endl;
+      // pointer = (n - (sum % n)) % n;
+      int a = (q2 - 1) - (sum % n);
+      if (a < 0) {
+        a = a + n;
+      }
+      cout << s.at(a) << endl;
     }
   }
 
