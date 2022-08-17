@@ -10,7 +10,7 @@ int cnt;
 void merge(int A[], int n, int left, int mid, int right) {
   int n1 = mid - left;
   int n2 = right - mid;
-  for (int i = 0; i < n1; i++) L[i] = A[left + i];
+  for (int i = 0; i < n1; i++) L[i] = A[left + i];  
   for (int i = 0; i < n2; i++) R[i] = A[mid + i];
   L[n1] = R[n2] = SENTINEL;
   int i = 0, j = 0;
