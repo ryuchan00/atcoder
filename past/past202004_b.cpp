@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 
 #include <algorithm>
+#include <cassert>
+#include <functional>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,11 +18,13 @@ int main() {
   int c_a = std::count(a.begin(), a.end(), 'a');
   int c_b = std::count(a.begin(), a.end(), 'b');
   int c_c = std::count(a.begin(), a.end(), 'c');
-  if (c_a > c_b && c_a > c_c) {
+  // maxはめっちゃおそいな
+  int mx = max({c_a, c_b, c_c});
+  if (mx == c_a) {
     cout << "a" << endl;
-  } else if (c_b > c_a && c_b > c_c) {
+  } else if (mx == c_b) {
     cout << "b" << endl;
-  } else if (c_c > c_a && c_c > c_b) {
+  } else if (mx == c_c) {
     cout << "c" << endl;
   }
   // 値が 1 の要素がいくつあるかを数える
