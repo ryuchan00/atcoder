@@ -37,8 +37,6 @@ int main() {
       } else if (A[i][j] == "G") {
         n = 10;
       } else {
-        // cout << "j: " << j << endl;
-        // cout << stoi(A[i][j]) << endl;
         n = stoi(A[i][j]);
       }
       group[n].push_back(make_pair(i, j));
@@ -48,14 +46,7 @@ int main() {
   // cost[i][j]: 数字を正しく通ってマス(i,j)にたどり着く最小移動回数
   // 非常に大きい値で初期化しておく
   ll inf = 2e18;
-  // ll inf = pow(10, 100);
   vector<vector<ll>> cost(N, vector<ll>(M, inf));
-  // rep(i,cost.size()) {
-  //   rep(j,cost[i].size()) {
-  //     cout << cost[i][j] << " ";
-  //   }
-  //   cout << endl;
-  // }
 
   // 初期条件．スタート地点の座標はgroup[0][0]
   ll si = group[0][0].first;
@@ -73,21 +64,10 @@ int main() {
         // for (int g=0;g < group.size();++g) {
         ll i2 = g2.first;
         ll j2 = g2.second;
-        // ll i2 = group[n][g].first;
-        // ll j2 = group[n][g].second;
         cost[i][j] = min(cost[i][j], cost[i2][j2] + abs(i - i2) + abs(j - j2));
       }
     }
   }
-  // rep(i,group.size()){
-  //   cout << group[i].first << " " << group[i].second << endl;
-  // }
-  // rep(i, cost.size()) {
-  //   rep(j, cost[i].size()) {
-  //     cout << cost[i][j] << " ";
-  //   }
-  //   cout << endl;
-  // }
   ll gi = group[10][0].first;
   ll gj = group[10][0].second;
   ll ans = cost[gi][gj];
