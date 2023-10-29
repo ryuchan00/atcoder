@@ -13,6 +13,7 @@ int main() {
   sort(a + 1, a + n + 1);
   for (int i = 1; i <= n; i++) {
     q.push(a[i]);
+    // お尻のほうを基準にする
     while (a[i] - m >= q.front()) {
       q.pop();
     }

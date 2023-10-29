@@ -12,66 +12,105 @@ using ll = long long;
 
 #define rep(i, n) for (int i = 0; (i) < (n); ++(i))
 
-vector<vector<int>> edges;
-vector<bool> done;
-vector<int> length;
-
-// メモ化再帰の実装
-int rec(int i) {
-  // 計算済みであれば，即座に値を返す
-  if (done[i]) {
-    return length[i];
-  }
-  // そうでなければ値を計算する
-  length[i] = 0;
-  for (const auto& j : edges[i]) {
-    length[i] = max(length[i], rec(j) + 1);
-  }
-  done[i] = true;
-  return length[i];
+bool has_bit(int n, int i) {
+  return (n & (1 << i)) > 0;
 }
 
-int ALL;
-
 int main() {
+  // bitset<4> b1(1);
+  // bitset<4> b2(3);
+  // cout << b1 << endl;
+  // cout << b2 << endl;
+  // cout << (b1 & b2) << endl;
   int N;
   cin >> N;
 
   vector<vector<int>> A;
   rep(i, N - 1) {
-    vector<int> v;
-    string str, s;
+    // vector<int> v;
+    // string str, s;
 
-    getline(cin, str);
+    // getline(cin, str);
 
-    stringstream ss{str};
+    // stringstream ss{str};
 
-    while (getline(ss, s, ' ')) {
-      v.push_back(stoi(s));
+    // while (getline(ss, s, ' ')) {
+    //   v.push_back(stoi(s));
+    // }
+    vector<int> lst;
+    rep(_, N - 1 - i) {
+      int a;
+      cin >> a;
+      lst.push_back(a);
+      // cout << a << endl;
     }
     // A[i]はA[i][i+1]からスタートするため，0からiまでの(i+1)個のダミーで埋める
-    A.push_back(v);
+    vector<int> dummy(i + 1, 0);
+    dummy.insert(dummy.end(), lst.begin(), lst.end());
+    A.push_back(dummy);
   }
+  // rep(i,A.size()) {
+  //   rep(j,A[i].size()) {
+  //     cout << A[i][j] << " ";
+  //   }
+  //   cout << endl;
+  // }
 
   // 集合としてありえるものの個数,2**N でも同じ
-  ALL = 1 << N;
-  ALL = 1 << 2;
+  int ALL = 1 << N;
 
+  // happy[n]:nで表現される集合を
+
+  // nで表現される集合に要素iが含まれるか判定してTrue/Falseを返す
+  vector<ll> happy(ALL, 0);
+
+  // happyの値を前もって計算する
+  // sample1だと64回繰り返されていることが分かる
+  rep(n, ALL) {
+    // bitset<7> b1(n);
+    // cout << b1 << endl;
+
+    rep(i, N) {
+      for (int j = i + 1; j < N; j++) {
+        if (has_bit(n, i) && has_bit(n, j)) {
+          happy[n] += A[i][j];
+        }
+      }
+    }
+  }
+  // cout << "happy" << endl;
   // cout << ALL << endl;
+  // rep(i, ALL) {
+  //   cout << happy[i] << endl;
+  // }
 
-  unsigned short short11 = 1024;
-  bitset<16> bitset11{short11};
-  cout << bitset11 << endl;  // 0b00000100'00000000
+  // 答えの値
+  // 充分に小さな値をとっておく
+  ll ans = pow(-10, 9);
+  // rep(i,ALL) {
+  //   cout << happy[i] << endl;
+  // }
 
-  unsigned short short12 = short11 >> 1;  // 512
-  bitset<16> bitset12{short12};
-  cout << bitset12 << endl;  // 0b00000010'00000000
-
-  unsigned short short13 = short11 >> 10;  // 1
-  bitset<16> bitset13{short13};
-  cout << bitset13 << endl;  // 0b00000000'00000001
-
-  unsigned short short14 = short11 >> 11;  // 0
-  bitset<16> bitset14{short14};
-  cout << bitset14 << endl;  // 0b00000000'00000000
+  rep(n1, ALL) {
+    rep(n2, ALL) {
+      if ((n1 & n2) > 0) {
+        continue;
+      }
+      bitset<11> n3 = ALL - 1 - (n1 | n2);
+      // bitset<7> b1(n3);
+      // cout << n3.to_ullong() << endl;
+      // cout << happy[n1] << endl;
+      // cout << happy[n2] << endl;
+      // cout << happy[n3.to_ullong()] << endl;
+      // cout << n3.to_ullong() << endl;
+      ans = max(ans, happy[n1] + happy[n2] + happy[n3.to_ullong()]);
+      if (happy[n1] + happy[n2] + happy[n3.to_ullong()] == 4) {
+        // cout << "hoge" << endl;
+        // cout << n1 << endl;
+        // cout << n2 << endl;
+        // cout << n3.to_ullong() << endl;
+      }
+    }
+  }
+  cout << ans << endl;
 }
