@@ -11,6 +11,19 @@ using namespace std;
 using ll = long long;
 
 #define rep(i, n) for (int i = 0; (i) < (n); ++(i))
+void dump(vector<ll> a) {
+  for (int i = 0; i < a.size(); i++) {
+    cout << a[i] << " ";
+  }
+}
+void dump2(vector<vector<ll>> a) {
+  for (int i = 0; i < a.size(); i++) {
+    for (int j = 0; j < a[i].size(); j++) {
+      cout << a[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
 
 bool has_bit(int n, int i) {
   return (n & (1 << i)) > 0;
@@ -19,25 +32,44 @@ bool has_bit(int n, int i) {
 // https://atcoder.jp/contests/past201912-open/tasks/past201912_g
 
 int main() {
-  int N, M;
+  ll N, M;
   cin >> N >> M;
 
-  // 1始まりにするためにダミーを入れる
-  vector<ll> S(1, 0);
-  vector<ll> C(1, 0);
-  rep(i, M) {
-    string s;
-    ll c;
-    cin >> s >> c;
-    ll s_val = 0;
-    rep(j, N) {
-      if (s[j] == 'Y') {
-        s_val = (s_val | 1 << j);
-      }
+  // 1始まりにするために先頭にダミーを入れる
+  vector<ll> A(M + 1, 0);
+  vector<ll> B(M + 1, 0);
+  vector<vector<ll>> C(M + 1);
+
+  rep(i, M + 1) {
+    cin >> A[i + 1] >> B[i + 1];
+    rep(j, B[i + 1]) {
+      ll c;
+      cin >> c;
+      C[i + 1].push_back(c);
     }
-    S.push_back(s_val);
-    C.push_back(c);
   }
+
+  dump(A);
+  cout << endl;
+  dump(B);
+  cout << endl;
+  dump2(C);
+
+  // vector<ll> S(1, 0);
+  // vector<ll> C(1, 0);
+  // rep(i, M) {
+  //   string s;
+  //   ll c;
+  //   cin >> s >> c;
+  //   ll s_val = 0;
+  //   rep(j, N) {
+  //     if (s[j] == 'Y') {
+  //       s_val = (s_val | 1 << j);
+  //     }
+  //   }
+  //   S.push_back(s_val);
+  //   C.push_back(c);
+  // }
 
   // rep(i, S.size()) {
   //   /*
@@ -52,7 +84,7 @@ int main() {
   //   cout << b1 << " ";
   //   cout << C[i] << endl;
   // }
-
+/*
   // 集合としてあり得るものの個数．2**Nでも同じ
   int ALL = 1 << N;
 
@@ -87,4 +119,5 @@ int main() {
   }
 
   cout << ans << endl;
+  */
 }
