@@ -1,29 +1,99 @@
 {
-  "tasks": [
-    {
-      "type": "cppbuild",
-      "label": "C/C++: g++ アクティブなファイルのビルド",
-      "command": "/usr/bin/g++",
-      "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}",
-        "-std=c++17"
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "problemMatcher": [
-        "$gcc"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "detail": "デバッガーによって生成されたタスク。"
-    }
-  ],
-  "version": "2.0.0"
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "build",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-std=c++17",
+				"-O2",
+				"-pedantic-errors",
+				"-Wall",
+				"-D_GLIBCXX_DEBUG",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}/a.out"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/g++",
+			"presentation": {
+				"focus": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "download test cases",
+			"command": "${workspaceFolder}/configs/dltest.sh",
+			"args": [
+				"${relativeFileDirname}"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "do oj-prepare",
+			"command": "oj-prepare",
+			"args": [
+				"--config-file",
+				"configs/prepare.config.toml",
+				"${input:service_url}/${input:contest_id}"
+			],
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "do oj test",
+			"command": "oj",
+			"args": [
+				"t",
+				"-c",
+				"${fileDirname}/a.out",
+				"-d",
+				"${fileDirname}/test"
+			],
+			"dependsOn": [
+				"build",
+				"download test cases"
+			],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"presentation": {
+				"focus": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "submit",
+			"command": "${workspaceFolder}/configs/submit.sh",
+			"args": [
+				"${relativeFile}"
+			]
+		}
+	],
+	"inputs": [
+		{
+			"id": "service_url",
+			"type": "pickString",
+			"description": "Contest site URL",
+			"options": [
+				"https://atcoder.jp/contests",
+				"https://codeforces.com/contest"
+			],
+			"default": "https://atcoder.jp/contests"
+		},
+		{
+			"id": "contest_id",
+			"type": "promptString",
+			"description": "Contest ID"
+		}
+	]
 }

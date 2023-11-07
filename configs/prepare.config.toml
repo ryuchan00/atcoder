@@ -1,0 +1,5 @@
+contest_directory = "{service_name}/{contest_id}"
+problem_directory = "{problem_id}"
+
+[templates]
+"main.cpp" = "my_main.cpp"

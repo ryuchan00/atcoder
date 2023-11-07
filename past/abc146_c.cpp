@@ -34,27 +34,21 @@ bool has_bit(int n, int i) {
 // https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_a
 
 int main() {
-  ll N, K;
-  cin >> N >> K;
-  vector<ll> A(N);
-  rep(i, N) {
-    cin >> A[i];
-  }
+  ll A, B, X;
+  cin >> A >> B >> X;
+  ll ok = 0;
+  ll ng = 1e9 + 1;
 
-  ll ok = N;
-  ll ng = -1;
-  ll mid;
+  ll mid, d, price;
   while (abs(ok - ng) > 1) {
     mid = (ok + ng) / 2;
-    if (A[mid] >= K) {
+    d = to_string(mid).size();
+    price = A * mid + B * d;
+    if (price <= X) {
       ok = mid;
     } else {
       ng = mid;
     }
   }
-  if (ok == N) {
-    cout << -1 << endl;
-  } else {
-    cout << ok << endl;
-  }
+  cout << ok << endl;
 }
