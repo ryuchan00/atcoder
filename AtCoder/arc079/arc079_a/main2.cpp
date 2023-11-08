@@ -39,6 +39,9 @@ bool solve(int64_t N, int M, const std::vector<int64_t> &a, const std::vector<in
   // 幅優先探索で各頂点への最短距離を求める
   ll i;
 
+  // ヒープから出したことがあるかを保存する配列
+  vector<bool> done(N, false);
+
   // ヒープの設定
   // C++のpairとheapの挙動についてはこちらを参照
   // https://www.geeksforgeeks.org/priority-queue-of-pairs-in-c-ordered-by-first/
@@ -52,8 +55,16 @@ bool solve(int64_t N, int M, const std::vector<int64_t> &a, const std::vector<in
     // キューの先頭の頂点を取り出してiとする
     top = Q.top();
     Q.pop();
+
     ll d = top.first;
     ll i = top.second;
+
+    // ヒープから取り出したことがあれば
+    // 隣接する頂点を調べることをスキップする
+    if (done[i]) continue;
+
+    done[i] = true;
+
     // 頂点に隣接してい頂点を順番に見る
     // 見ている頂点をjとする
     for (const auto &j : G[i]) {
