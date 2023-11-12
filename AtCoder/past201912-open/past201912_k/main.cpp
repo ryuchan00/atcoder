@@ -6,7 +6,7 @@
 #define ALL(x) ::std::begin(x), ::std::end(x)
 using namespace std;
 using ll = long long;
-using pi = pair<int, int>;
+using pi = pair<ll, ll>;
 
 const std::string YES = "Yes";
 const std::string NO = "No";
@@ -43,10 +43,42 @@ auto solve(int N, const std::vector<int64_t> &p, int Q, const std::vector<int64_
         }
     }
 
-    queries.resize(Q);
-    REP(q, Q) {
-        queries[a[q] - 1].push_back(make_pair(q, b[q] - 1));
+    // REP(i,N) {
+    //     cout << i << ": ";
+    //     REP(j,edges[i].size()) {
+    //         cout << edges[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    // cout << "Q:" << Q << endl;
+    // queries.resize(Q, vector<pi>());
+    REP(i, N) {
+        queries.push_back(vector<pi>());
     }
+    // cout << "queries.size():" << queries.size() << endl;
+    REP(q, Q) {
+        // cout << "q:" << q << endl;
+        // cout << "a[q]:" << a[q] << endl;
+        // cout << "b[q]:" << b[q] << endl;
+        // queries[(a[q] - (ll)1)].push_back(make_pair((ll)q, (b[q] - (ll)1)));
+        pi p = make_pair((ll)q, (b[q] - (ll)1));
+        queries[(a[q] - (ll)1)].push_back(p);
+        // cout << p.first << "," << p.second << endl;
+        // queries[5].push_back(p);
+        // queries[0].push_back(p);
+    }
+    // cout << "queries:" << endl;
+
+    // REP(i, Q) {
+    //     cout << i << ": ";
+    //     REP(j, queries[i].size()) {
+    //         cout << "(" << queries[i][j].first << "," << queries[i][j].second << ")"
+    //              << " ";
+    //     }
+    //     cout << endl;
+    // }
+
     ans.resize(Q, false);
     boss.resize(N, false);
 
@@ -65,7 +97,7 @@ auto solve(int N, const std::vector<int64_t> &p, int Q, const std::vector<int64_
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-    int N, Q;
+    ll N, Q;
     std::cin >> N;
     std::vector<int64_t> p(N);
     REP(i, N) {
