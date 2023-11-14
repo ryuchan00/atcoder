@@ -60,26 +60,11 @@ int64_t solve(int64_t N, int M, const std::vector<int64_t> &u, const std::vector
     // 最後にいる頂点がT[i]であるときのコスト最小値
     ll ALL = 1 << K;
     vector<vector<ll>> cost(ALL, vector<ll>(K, INF));
-    // REP(i, Dist.size()) {
-    //     cout << "dist size:" << Dist[i].size() << endl;
-    //     REP(j, Dist[i].size()) {
-    //         cout << Dist[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
-    // cout << "ALL:" << ALL << endl;
-    // cout << "K:" << K << endl;
-    // cout << "dist size:" << Dist.size() << endl;
-    // cout << "dist size:" << Dist[2].size() << endl;
     // 始点Sから各T[i]に移動した状態を初期状態とする
     REP(i, K) {
         // cout << "i:" << i << endl;
 
         ll n = (1 << i);
-        // cout << n << endl;
-        // cout << cost[n][i] << endl;
-        // cout << Dist[0][i] << endl;
         cost[n][i] = Dist[K][i];
     }
 
