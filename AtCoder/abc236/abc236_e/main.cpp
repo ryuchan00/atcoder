@@ -49,7 +49,8 @@ void solve(int N, const std::vector<long long> &A) {
     double X_ok = 0.0;
     double X_ng = 1e9 + 1.0;
     double X;
-    REP(_, 100) {
+    // REP(_, 100) {
+    while ((X_ng - X_ok) > 1) {
         X = (X_ok + X_ng) / 2.0;
         if (check_average(N, A, X)) {
             X_ok = X;
