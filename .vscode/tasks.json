@@ -8,13 +8,14 @@
 			"args": [
 				"-std=c++17",
 				"-O2",
-				"-pedantic-errors",
 				"-Wall",
 				"-D_GLIBCXX_DEBUG",
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}/a.out"
+				"${fileDirname}/a.out",
+				"-I",
+        "ac-library"
 			],
 			"problemMatcher": [
 				"$gcc"
